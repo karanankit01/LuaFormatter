@@ -1,11 +1,11 @@
 #include "Config.h"
 
 #include <cstdlib>
-#include <filesystem>
+#include <experimental/filesystem>
 #include <fstream>
 #include <iostream>
 
-namespace fs = filesystem;
+namespace fs = experimental::filesystem;
 
 Config::Config() {
     // Defaul configuration
