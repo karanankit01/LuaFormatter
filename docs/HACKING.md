@@ -45,7 +45,7 @@ The function to update the configuration value and read the user configuration f
   * tab_width
   * continuation_indent_width
 
- For most of the functions, the program repeatedly checks the line indentation and config value of the column limit, and also it needs to do comment re-insertion as ANTRl deals with the tokenvector. The comment re-insertion is done because the program is redirecting the comment tokens to another channel. So these are not part of the AST. After doing the formatting in most of the `visit` functions the program loads the context in the vector.  
+ For most of the functions, the program repeatedly checks the line indentation and config value of the column limit, and also it needs to do comment re-insertion as ANTRL deals with the tokenvector. The comment re-insertion is done because the program is redirecting the comment tokens to another channel. So these are not part of the AST. After doing the formatting in most of the `visit` functions the program loads the context in the vector.  
 ## Testing the program
  The unit and regressions tests are implemented in the directory `test` directory.  
  It uses the 3rd party library [Catch2](https://github.com/catchorg/Catch2) as the test library.  
