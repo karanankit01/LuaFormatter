@@ -8,7 +8,8 @@ This file contains the details of the program's execution in stages.
  In order of search:
    * Linux: `./.lua-format`, `$XDG_CONFIG_HOME/luaformatter/config.yaml`, `$HOME/.config/luaformatter/config.yaml`
    * Windows: `./.lua-format`
-   * OSX: `./.lua-format`  
+   * OSX: `./.lua-format`
+
  In case it doesn't find any suitable file it will check the command line for configuration values and then fall back to the default values.  
  The program reads the configuration through the command line by checking the flag. To set the configuration for boolean arguments, it uses the `no-` prefix for falsifiable options.  
  The program will give the top priority to the configuration values given in the command-line, then to the configuration files, and finally to the hard-coded default values.  
@@ -25,6 +26,7 @@ The configuration values are validated by
    * **validate_quote** : Validated the conflict values of single_quote and double quote configuration
    * **validate_use_tab** : Validate the conflict values of the use_tab with tab_width configuration
    * **validate_tab_width** : Validate the integral values and conflict of tab_width configuration  
+
 The function to update the configuration value and read the user configuration file is declared in `config.h`.  
 ## Formatting the scripts
  The Lua script of the user is passed through the lualexer and luaParser to get tokenstream and chunkcontext. The program uses the 3rd party library [antrl4](https://github.com/antlr/antlr4) for the string tokenization and AST construction. The program is using a very specific design pattern of ANTRL4 called "Visitor Pattern" to traverse the AST just like it's described in the `Lua.g4`. AST traversal starts with the function `visitChunk(LuaParser::ChunkContext* ctx)` and then it calls the function `visitBlock`. In visitBlock function, the program checks for the semi to call the function `visitStat`, and after that, it checks retstat then function `visitRetstat` is called. In visitStat, `visitChidren` is called for the context. In `visitRepeatStat`, the function gets the token `REPEAT block UNTIL exp` and process them recursively. In `visitWhileStat` the function gets the token `WHILE exp DO block END` and process them while exp holds.  
@@ -37,7 +39,8 @@ The function to update the configuration value and read the user configuration f
   * indent_width
   * use_tab
   * tab_width
-  * continuation_indent_width  
+  * continuation_indent_width
+  
  For most of the functions, the program repeatedly checks the line indentation and config value of the column limit, and also it needs to do comment re-insertion as ANTRl deals with the tokenvector. The comment re-insertion is done because the program is redirecting the comment tokens to another channel. So these are not part of the AST. After doing the formatting in most of the `visit` functions the program loads the context in the vector.  
 ## Testing the program
  The unit and regressions tests are implemented in the directory `test` directory.  
