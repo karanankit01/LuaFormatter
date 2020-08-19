@@ -25,7 +25,7 @@ This file contains the details of the program's execution in stages.
   * **validate_quote** : Validated the conflict values of single_quote and double quote configuration
   * **validate_use_tab** : Validate the conflict values of the use_tab with tab_width configuration
   * **validate_tab_width** : Validate the integral values and conflict of tab_width configuration  
- The function to update the configuration value and read the user configuration file is declared in `config.h`.  
+The function to update the configuration value and read the user configuration file is declared in `config.h`.  
 ## Formatting the scripts
  The Lua script of the user is passed through the lualexer and luaParser to get tokenstream and chunkcontext. The program uses the 3rd party library [antrl4](https://github.com/antlr/antlr4) for the string tokenization and AST construction. The program is using a very specific design pattern of ANTRL4 called "Visitor Pattern" to traverse the AST just like it's described in the `Lua.g4`. AST traversal starts with the function `visitChunk(LuaParser::ChunkContext* ctx)` and then it calls the function `visitBlock`. In visitBlock function, the program checks for the semi to call the function `visitStat`, and after that, it checks retstat then function `visitRetstat` is called. In visitStat, `visitChidren` is called for the context. In `visitRepeatStat`, the function gets the token `REPEAT block UNTIL exp` and process them recursively. In `visitWhileStat` the function gets the token `WHILE exp DO block END` and process them while exp holds.  
    
